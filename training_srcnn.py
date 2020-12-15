@@ -109,9 +109,9 @@ def train():
     degraded=[]
     ref=[]
     count=0
-    for file in os.listdir('../input/train-bsd'):
+    for file in os.listdir(os.getcwd()+'/train91'):
         
-        ref_e = cv2.imread('../input/train-bsd/{}'.format(file))
+        ref_e = cv2.imread(os.getcwd()+'/train91/{}'.format(file))
         ref_e = cv2.cvtColor(ref_e, cv2.COLOR_BGR2YCrCb)
         ref_e=ref_e[:,:,0]
         #ref_e=cv2.normalize(ref_e[:,:,0], None, 0.0, 1.0, cv2.NORM_MINMAX)
@@ -144,7 +144,7 @@ def train():
     degraded,ref=zip(*randd)        
 
     srcnn.fit(np.array(degraded),np.array(ref) ,epochs=200,shuffle=True, batch_size=128, verbose=1)
-    srcnn.save("trained_bsd.h5")
+    srcnn.save("trainedsrcnn.h5")
 
 train()
 
