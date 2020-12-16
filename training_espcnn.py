@@ -29,9 +29,9 @@ def train_ESPCNN():
     ref=[]
 
     count=0
-    for file in os.listdir('../input/train-bsd/'):
+    for file in os.listdir(os.getcwd()+'/train-bsd/'):
         
-        ref_e = cv2.imread('../input/train-bsd/{}'.format(file))
+        ref_e = cv2.imread(os.getcwd()+'/train-bsd/{}'.format(file))
         ref_e = cv2.cvtColor(ref_e, cv2.COLOR_BGR2YUV)
         #print(np.shape(ref_e))
         ref_e=ref_e[:,:,0]
@@ -74,7 +74,7 @@ def train_ESPCNN():
     espcnn.compile(optimizer=optimizer, loss="mean_squared_error")
 
     espcnn.fit(np.array(degraded),np.array(ref),epochs=500,shuffle=True,  verbose=2)
-    espcnn.save("trained_espcnn.h5")    
+    espcnn.save("trained_espcnn_new.h5")    
     
 def get_model(upscale_factor=3, channels=1):
     conv_args = {
